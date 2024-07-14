@@ -19,8 +19,8 @@ public class Test6_Interrupt {
 
         //对比：isInterrupted()检测此线程是否终端  但不会清除中断状态
         //检测当前线程是否被中断
-        //System.out.println(Thread.currentThread().getName() + "线程是否中断："+Thread.interrupted());//true
+        //System.out.println(Thread.currentThread().getName() + "线程是否中断："+Thread.currentThread().isInterrupted());//true
         //检测是否被清除中断状态
-        //System.out.println(Thread.currentThread().getName() + "线程是否中断："+Thread.interrupted());//true
+        //System.out.println(Thread.currentThread().getName() + "线程是否中断："+Thread.currentThread().isInterrupted());//true
     }
 }

@@ -1,5 +1,8 @@
 package com.yc.thread;
 
+/**
+ * 中断线程并抛出异常
+ */
 public class Test8_ReThrowInterruptException {
     public static void main(String[] args) throws InterruptedException {
         //当前线程
