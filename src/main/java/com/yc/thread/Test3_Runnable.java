@@ -1,15 +1,12 @@
 package com.yc.thread;
 
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Runnable可运行的任务
  */
-public class Test2_Runnable {
+public class Test3_Runnable {
     public static void main(String[] args) {
         //创建一个线程，绑定任务
         //语法一：
