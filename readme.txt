@@ -13,5 +13,4 @@
     找到项目的目录 -》 进入git bash命令行
         输入： git pull origin master --allow-unrelated-histories
         输入： git push -u origin master -f
-
 OK
