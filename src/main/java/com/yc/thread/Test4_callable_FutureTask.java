@@ -27,6 +27,7 @@ public class Test4_callable_FutureTask {
             }
         });
 
+
         //将任务类和线程绑定
         Thread t1 = new Thread(task1);
         t1.start();
