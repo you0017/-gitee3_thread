@@ -20,7 +20,7 @@ public class Test7_isInterrupted {
             e.printStackTrace();
             System.out.println(thread.getName()+"线程休眠被中断");
             //判断现场是否中断，因为异常已经处理完 所以恢复状态   拓展：catch写处理代码
-            System.out.println(thread.getName()+"线程是否终端："+thread.isInterrupted());//false
+            System.out.println(thread.getName()+"线程是否中断："+thread.isInterrupted());//false
         }
 
         System.out.println(thread.getName() + "线程是否中断："+thread.isInterrupted());

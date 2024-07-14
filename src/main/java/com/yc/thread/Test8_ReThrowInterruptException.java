@@ -15,7 +15,7 @@ public class Test8_ReThrowInterruptException {
             System.out.println(thread.getName()+"做一些清理工作");
 
             //也可以将中断异常向上继续抛出
-            throw e;
+            //throw e;
         }
 
         System.out.println("主程序还能正常执行嘛");

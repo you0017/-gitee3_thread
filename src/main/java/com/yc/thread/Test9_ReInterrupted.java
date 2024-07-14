@@ -43,6 +43,7 @@ public class Test9_ReInterrupted extends Thread{
                 System.out.println(printDate()+threadName+"的状态："+this.isInterrupted());//false
                 //如果需要维护中断状态，则需要重新设置中断状态
                 //TODO:如果不需要，则不用调用   如果调用interrupt()的话，则当前线程的状态变为中断·这个while循环退出
+                //Thread.interrupted();
                 Thread.currentThread().interrupt();//true //TODO：如果注释这一句话，则中断不起作用·while循环人会继续·想象一下，这对一些偶然出现的小问题并不会让任务结束
             }
         }

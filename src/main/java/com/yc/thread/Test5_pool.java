@@ -91,7 +91,7 @@ public class Test5_pool {
             }
             @Override
             public String toString(){
-                return "RunnableTask [namee="+name+"]";
+                return "RunnableTask [name="+name+"]";
             }
         }
     }
