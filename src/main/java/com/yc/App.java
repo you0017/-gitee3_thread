@@ -10,7 +10,6 @@ public class App
         show();
     }
 
-
     public static void show() throws InterruptedException {
         Thread.sleep(2000);
         System.out.println("2");
