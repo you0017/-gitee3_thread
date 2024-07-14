@@ -85,7 +85,6 @@ public class Test2_Runnable {
     }
 }
 
-
 //从任务角度来看
 class ShowTimeTask implements Runnable {
 
