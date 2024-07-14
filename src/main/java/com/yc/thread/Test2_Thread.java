@@ -44,7 +44,6 @@ public class Test2_Thread {
     }
 }
 
-
 //方案一：外部类写一个类继承自Thread，重写run()方法，在这个方法放入耗时操作或阻塞操作
 //MyThread.start() -> start0() native cpp  -> run()
 
