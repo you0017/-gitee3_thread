@@ -35,7 +35,7 @@ public class Test5_pool {
             //任务数量
             int count = 10;
             for (int i = 0; i < count; i++) {
-                MyIgnorePolicy.Task task = new MyIgnorePolicy.Task(String.valueOf(1));
+                MyIgnorePolicy.Task task = new MyIgnorePolicy.Task(String.valueOf(i));
 
                 executor.submit(task);//线程池中最多同时执行5个任务+2个对了   提交任务到线程池  还有3个任务无法执行
             }
