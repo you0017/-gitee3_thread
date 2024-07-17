@@ -34,14 +34,17 @@ public class ParallelGroupMultiplier {
             endIndex = i == numThreads - 2 ? rows1 : startIndex + step;
 
             System.out.println("第"+i+"个线程的计算范围为："+startIndex + "->" + endIndex);
-            waitForAll(threads);
+            /*if (threads.size() % 10 == 0) {
+                waitForAll(threads);
+            }*/
         }
+        waitForAll(threads);
     }
 
     private static void waitForAll(List<Thread> threads) {
         for (Thread thread : threads) {
             try {
-                thread.join();//t先运行，其他的线程先等
+                thread.join();//主线程下面的所有子线程运行先运行，主线程线程先等
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

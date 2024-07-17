@@ -3,7 +3,7 @@ package com.yc.thread;
 /**
  * 生产者和消费者
  */
-public class producereConsumer {
+public class Test17_producerConsumer {
     public static void main(String[] args) {
         AppleBox ab = new AppleBox();
 

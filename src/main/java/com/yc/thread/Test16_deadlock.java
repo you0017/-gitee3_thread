@@ -3,14 +3,14 @@ package com.yc.thread;
 /**
  * 线程死锁
  */
-public class deadlock implements Runnable{
+public class Test16_deadlock implements Runnable{
     public int flag = 1;
     static Object o1 = new Object();
     static Object o2 = new Object();
 
     public static void main(String[] args) {
-        deadlock deadlock = new deadlock();
-        deadlock deadlock2 = new deadlock();
+        Test16_deadlock deadlock = new Test16_deadlock();
+        Test16_deadlock deadlock2 = new Test16_deadlock();
 
         deadlock.flag=1;
         deadlock2.flag=0;
@@ -30,9 +30,12 @@ public class deadlock implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                synchronized (o2){
+                /*synchronized (o2){
                     System.out.println("1");
-                }
+                }*/
+            }
+            synchronized (o2){
+                System.out.println("1");
             }
         }
         if (flag==0){
@@ -42,9 +45,12 @@ public class deadlock implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                synchronized (o1){
+                /*synchronized (o1){
                     System.out.println("2");
-                }
+                }*/
+            }
+            synchronized (o1){
+                System.out.println("2");
             }
         }
     }
