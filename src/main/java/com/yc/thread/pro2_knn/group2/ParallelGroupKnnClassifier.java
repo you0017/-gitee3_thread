@@ -1,10 +1,14 @@
-package com.yc.thread.pro2_knn.group;
+package com.yc.thread.pro2_knn.group2;
 
+import com.yc.thread.pro2_knn.EuclideanDistanceCalculator;
 import com.yc.thread.pro2_knn.bean.BankMarketing;
 import com.yc.thread.pro2_knn.bean.Distance;
 import com.yc.thread.pro2_knn.bean.Sample;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * knn调度类
@@ -16,27 +20,34 @@ public class ParallelGroupKnnClassifier {
 
     private List<BankMarketing> dataSet;    //训练集39129条，拿一条测试数据和它计算距离
 
+    private ThreadPoolExecutor executor;    //线程池
     public ParallelGroupKnnClassifier(int k, int numThreads, boolean parallelSort, List<BankMarketing> dataSet) {
         this.k = k;
         this.numThreads = numThreads;
         this.parallelSort = parallelSort;
         this.dataSet = dataSet;
+        this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool((int) (numThreads*1.5));
     }
 
     public String classify(Sample example){
+        CountDownLatch endController = new CountDownLatch(numThreads);  //计数器 线程数
+
         Distance[] distances = new Distance[dataSet.size()];
         //1.计算12个线程中每个线程  它的计算任务的 startIndex,endIndex
         int length = dataSet.size() / numThreads;   //分段区间
         int startIndex = 0;
         int endIndex = length;
-        List<Thread> list = new ArrayList<>();
+        //List<Thread> list = new ArrayList<>();
         //2.根据numThreads  创建任务，绑定到线程上
         for (int i = 0; i < numThreads; i++) {
             //计算example这个条测试数据与dataSet中39129条数据的距离  （计算  startIndex -endIndex),将距离结果存到distance
-            GroupDistanceTask task = new GroupDistanceTask(distances,startIndex,endIndex,dataSet,example);
-            Thread t = new Thread(task);
+            GroupDistanceTask task = new GroupDistanceTask(distances,startIndex,endIndex,dataSet,example,new EuclideanDistanceCalculator(),endController);
+            /*Thread t = new Thread(task);
             t.start();
-            list.add(t);
+            list.add(t);*/
+
+            executor.execute(task);//加入线程池后如何让主程序停下
+
 
             startIndex = endIndex;
             endIndex = i==numThreads-2? dataSet.size() : endIndex+length;
@@ -45,12 +56,17 @@ public class ParallelGroupKnnClassifier {
 
         //
         //3.调用每个线程的join()  让主线程停止，好计算时间
-        for (Thread thread : list) {
+        /*for (Thread thread : list) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }*/
+        try {
+            endController.await();  //相当于上面的join，阻塞，当countDownLatch 减到0 才继续往下执行
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         //4.排序距离
@@ -94,5 +110,11 @@ public class ParallelGroupKnnClassifier {
         return maxTag;*/
                                 //对整个键值对排序      根据值排序                   返回的键值对，我要取键
         return Collections.max(results.entrySet(),Map.Entry.comparingByValue()).getKey();
+    }
+
+    public void destory(){
+        if (executor!=null){
+            executor.shutdown();
+        }
     }
 }
